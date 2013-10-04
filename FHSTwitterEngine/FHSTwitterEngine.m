@@ -633,6 +633,7 @@ id removeNull(id rootObject) {
     NSURL *baseURL = [NSURL URLWithString:url_statuses_update_with_media];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"status"] = tweetString;
     params[@"media[]"] = theData;
     
     if (irt.length > 0) {
@@ -1428,6 +1429,10 @@ id removeNull(id rootObject) {
         
         [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:data];
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        }
     }
     
     [body appendData:[[NSString stringWithFormat:@"--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
